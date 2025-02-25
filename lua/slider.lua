@@ -84,9 +84,8 @@ M.start_presentation = function(opts)
   end, {
     buffer = float.buf,
   })
-  local staringSlide = parsed.slides[1]
 
-  vim.api.nvim_buf_set_lines(float.buf, 0, -1, false, staringSlide)
+  vim.api.nvim_buf_set_lines(float.buf, 0, -1, false, parsed.slides[1])
 end
 
 return M
