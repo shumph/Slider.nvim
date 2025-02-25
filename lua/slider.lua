@@ -1,39 +1,8 @@
 local M = {}
 
-local function create_floating_window(opts)
-  opts = opts or {}
-  local width = opts.width or math.floor(vim.o.columns * 0.8)
-  local height = opts.height or math.floor(vim.o.lines * 0.8)
+--todo
+M.setup = function() end
 
-  -- Calculate the position to center the window
-  local col = math.floor((vim.o.columns - width) / 2)
-  local row = math.floor((vim.o.lines - height) / 2)
-
-  -- Create a buffer
-  local buf = vim.api.nvim_create_buf(false, true)
-
-  -- Define window configuration
-  local win_config = {
-    relative = "editor",
-    width = width,
-    height = height,
-    col = col,
-    row = row,
-    style = "minimal", -- No borders or extra UI elements
-    border = "rounded",
-  }
-
-  -- Create the floating window
-  local win = vim.api.nvim_open_win(buf, true, win_config)
-
-  return { buf = buf, win = win }
-end
-
-M.setup = function()
-  -- blank
-end
-
--- object our function will return
 ---@class slider.Slides
 ---@field slides string[]
 
@@ -54,6 +23,32 @@ local generateSlides = function(lines)
     table.insert(cur, line)
   end
   return slides
+end
+
+-- function for opening a floating window
+local function create_floating_window(opts)
+  opts = opts or {}
+  local width = opts.width or math.floor(vim.o.columns * 0.8)
+  local height = opts.height or math.floor(vim.o.lines * 0.8)
+
+  local col = math.floor((vim.o.columns - width) / 2)
+  local row = math.floor((vim.o.lines - height) / 2)
+
+  local buf = vim.api.nvim_create_buf(false, true)
+
+  local win_config = {
+    relative = "editor",
+    width = width,
+    height = height,
+    col = col,
+    row = row,
+    -- style = "minimal",
+    border = "shadow",
+  }
+
+  local win = vim.api.nvim_open_win(buf, true, win_config)
+
+  return { buf = buf, win = win }
 end
 
 M.start_presentation = function(opts)
@@ -89,14 +84,3 @@ M.start_presentation = function(opts)
 end
 
 return M
-
---[[
---
-Error executing Lua callback: ...samuel/.local/share/nvim/lazy/slider.nvim/lua/slider.lua:87: Invalid 'replacement': Expected Lua table
-stack traceback:
-	[C]: in function 'nvim_buf_set_lines'
-	...samuel/.local/share/nvim/lazy/slider.nvim/lua/slider.lua:87: in function 'start_presentation'
-	...amuel/.local/share/nvim/lazy/slider.nvim/plugin/load.lua:3: in function <...amuel/.local/share/nvim/lazy/slider.nvim/plugin/load.lua:1>
-```
---
---]]
