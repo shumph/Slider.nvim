@@ -10,12 +10,7 @@ local function create_floating_window(opts)
   local row = math.floor((vim.o.lines - height) / 2)
 
   -- Create a buffer
-  local buf = nil
-  if vim.api.nvim_buf_is_valid(opts.buf) then
-    buf = opts.buf
-  else
-    buf = vim.api.nvim_create_buf(false, true) -- No file, scratch buffer
-  end
+  local buf = vim.api.nvim_create_buf(false, true)
 
   -- Define window configuration
   local win_config = {
@@ -67,7 +62,7 @@ M.start_presentation = function(opts)
 
   local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
   local parsed = generateSlides(lines)
-  local float = create_floating_window(opts)
+  local float = create_floating_window()
   local currSlide = 1
   vim.keymap.set("n", "n", function()
     currSlide = math.min(currSlide + 1, #parsed.slides)
