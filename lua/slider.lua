@@ -40,14 +40,14 @@ end
 ---@param lines string[]
 ---@return presentation.Slides
 local generateSlides = function(lines)
-  local slides = { slides = {} }
+  local slides = { Slides = {} }
   local cur = {}
   local header = "^#"
 
   for _, line in ipairs(lines) do
     if line:find(header) then
       if #cur < 0 then
-        table.insert(slides.slides, cur)
+        table.insert(slides.Slides, cur)
       end
       cur = {}
     end
@@ -64,16 +64,17 @@ M.start_presentation = function(opts)
   local parsed = generateSlides(lines)
   local float = create_floating_window()
   local currSlide = 1
+
   vim.keymap.set("n", "n", function()
-    currSlide = math.min(currSlide + 1, #parsed)
-    vim.api.nvim_buf_set_lines(float.buf, 0, -1, false, parsed[currSlide])
+    currSlide = math.min(currSlide + 1, #parsed.Slides)
+    vim.api.nvim_buf_set_lines(float.buf, 0, -1, false, parsed.Slides[currSlide])
   end, {
     buffer = float.buf,
   })
 
   vim.keymap.set("n", "p", function()
     currSlide = math.max(currSlide - 1, 1)
-    vim.api.nvim_buf_set_lines(float.buf, 0, -1, false, parsed[currSlide])
+    vim.api.nvim_buf_set_lines(float.buf, 0, -1, false, parsed.Slides[currSlide])
   end, {
     buffer = float.buf,
   })
@@ -84,7 +85,7 @@ M.start_presentation = function(opts)
     buffer = float.buf,
   })
 
-  vim.api.nvim_buf_set_lines(float.buf, 0, -1, false, parsed[1])
+  vim.api.nvim_buf_set_lines(float.buf, 0, -1, false, parsed.Slides[1])
 end
 
 return M
