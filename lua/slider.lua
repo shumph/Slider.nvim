@@ -40,7 +40,7 @@ end
 ---@param lines string[]
 ---@return presentation.Slides
 local generateSlides = function(lines)
-  local slides = { Slides = {} }
+  local slides = { slides2 = {} }
   local cur = {}
   local header = "^#"
 
@@ -66,15 +66,15 @@ M.start_presentation = function(opts)
   local currSlide = 1
 
   vim.keymap.set("n", "n", function()
-    currSlide = math.min(currSlide + 1, #parsed.slides)
-    vim.api.nvim_buf_set_lines(float.buf, 0, -1, false, parsed.slides[currSlide])
+    currSlide = math.min(currSlide + 1, #parsed.slides2)
+    vim.api.nvim_buf_set_lines(float.buf, 0, -1, false, parsed.slides2[currSlide])
   end, {
     buffer = float.buf,
   })
 
   vim.keymap.set("n", "p", function()
     currSlide = math.max(currSlide - 1, 1)
-    vim.api.nvim_buf_set_lines(float.buf, 0, -1, false, parsed.slides[currSlide])
+    vim.api.nvim_buf_set_lines(float.buf, 0, -1, false, parsed.slides2[currSlide])
   end, {
     buffer = float.buf,
   })
@@ -85,7 +85,7 @@ M.start_presentation = function(opts)
     buffer = float.buf,
   })
 
-  vim.api.nvim_buf_set_lines(float.buf, 0, -1, false, parsed.slides[1])
+  vim.api.nvim_buf_set_lines(float.buf, 0, -1, false, parsed.slides2[1])
 end
 
 return M
