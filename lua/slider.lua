@@ -84,7 +84,18 @@ M.start_presentation = function(opts)
     buffer = float.buf,
   })
 
-  vim.api.nvim_buf_set_lines(float.buf, 0, -1, false, parsed.slides[1])
+  vim.api.nvim_buf_set_lines(float.buf, 0, -1, false, parsed.slides)
 end
 
 return M
+
+--[[
+--
+Error executing Lua callback: ...samuel/.local/share/nvim/lazy/slider.nvim/lua/slider.lua:87: Invalid 'replacement': Expected Lua table
+stack traceback:
+	[C]: in function 'nvim_buf_set_lines'
+	...samuel/.local/share/nvim/lazy/slider.nvim/lua/slider.lua:87: in function 'start_presentation'
+	...amuel/.local/share/nvim/lazy/slider.nvim/plugin/load.lua:3: in function <...amuel/.local/share/nvim/lazy/slider.nvim/plugin/load.lua:1>
+```
+--
+--]]
