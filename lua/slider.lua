@@ -27,7 +27,6 @@ local generateSlides = function(lines)
   local slides = { slides = {} }
   local currSlide = {}
   for _, line in ipairs(lines) do
-    print(line, "find:", line:find(header), "|")
     if line:find(header) then
       if #currSlide < 0 then
         table.insert(slides.slides, currSlide)
