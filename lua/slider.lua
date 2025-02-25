@@ -1,11 +1,11 @@
 local M = {}
 
-local function createWindow(config, enter)
+local function create_floating_window(config, enter)
   if enter == nil then
     enter = false
   end
 
-  local buf = vim.api.nvim_create_buf(false, true)
+  local buf = vim.api.nvim_create_buf(false, true) -- No file, scratch buffer
   local win = vim.api.nvim_open_win(buf, enter or false, config)
 
   return { buf = buf, win = win }
