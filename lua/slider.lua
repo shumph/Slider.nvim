@@ -37,23 +37,23 @@ end
 ---@class presentation.Slides
 ---@fields slides string[]
 
-local header = "^#"
-
 ---@param lines string[]
 ---@return presentation.Slides
 local generateSlides = function(lines)
-  local slideSet = { slides = {} }
-  local currSlide = {}
+  local slides = { slides = {} }
+  local cur = {}
+  local header = "^#"
+
   for _, line in ipairs(lines) do
     if line:find(header) then
-      if #currSlide < 0 then
-        table.insert(slideSet.slides, currSlide)
+      if #cur < 0 then
+        table.insert(slides.slides, cur)
       end
-      currSlide = {}
+      cur = {}
     end
-    table.insert(currSlide, line)
+    table.insert(cur, line)
   end
-  return slideSet
+  return slides
 end
 
 M.start_presentation = function(opts)
