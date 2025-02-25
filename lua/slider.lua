@@ -67,7 +67,7 @@ M.start_presentation = function(opts)
 
   local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
   local parsed = generateSlides(lines)
-  local float = create_floating_window()
+  local float = create_floating_window(opts)
   local currSlide = 1
   vim.keymap.set("n", "n", function()
     currSlide = math.min(currSlide + 1, #parsed.slides)
