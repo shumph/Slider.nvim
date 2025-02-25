@@ -46,7 +46,7 @@ local generateSlides = function(lines)
 
   for _, line in ipairs(lines) do
     if line:find(header) then
-      if #cur < 0 then
+      if #cur > 0 then
         table.insert(slides.slides, cur)
       end
       cur = {}
