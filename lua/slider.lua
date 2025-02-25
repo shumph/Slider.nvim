@@ -34,11 +34,11 @@ M.setup = function()
 end
 
 -- object our function will return
----@class presentation.Slides
+---@class slider.Slides
 ---@field slides string[]
 
 ---@param lines string[]
----@return presentation.Slides
+---@return slider.Slides
 local generateSlides = function(lines)
   local slides = { slides = {} }
   local cur = {}
