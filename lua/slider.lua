@@ -40,14 +40,14 @@ end
 ---@param lines string[]
 ---@return presentation.Slides
 local generateSlides = function(lines)
-  local slides = { slides2 = {} }
+  local slides = { slides = {} }
   local cur = {}
   local header = "^#"
 
   for _, line in ipairs(lines) do
     if line:find(header) then
       if #cur < 0 then
-        table.insert(slides.Slides, cur)
+        table.insert(slides.slides, cur)
       end
       cur = {}
     end
