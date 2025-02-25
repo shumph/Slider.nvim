@@ -11,6 +11,3 @@ This is a presentation plugin for nvim, written in lua
  "shumph/slider.nvim"
 }
 ```
-
-```
-```
